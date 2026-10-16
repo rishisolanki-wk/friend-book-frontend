@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginRequest } from '../../../core/auth/login-request';
 import { Auth } from '../../../core/auth/auth';
+import { Router } from '@angular/router';
 
 @Component({
   imports: [ReactiveFormsModule],
@@ -18,13 +19,14 @@ export class Login {
   });
 
   authService = inject(Auth);
-
+  router = inject(Router);
   onLogin() {
     if (this.loginForm.invalid) { console.log('Form is invalid'); return; }
     const request: LoginRequest = this.loginForm.getRawValue();
     this.authService.login(request).subscribe({
       next: (response) => {
         localStorage.setItem('friendbook_token', response.jwt);
+        this.router.navigate(['/home']);
       },
       error: (error) => {
         console.error('Login failed:', error);

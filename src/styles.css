@@ -6,3 +6,9 @@ body{
 a{
     color: #fff;
 }
+input{
+    background-color: #4d4c4c;
+    color: #fff;
+    margin: 5px;
+    padding: 5px;
+}
